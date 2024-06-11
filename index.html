@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Architexture</title>
+  </head>
+  <body>
+        <header>
+          <div class="header">
+            <a href="/index.html">
+              <img src="public/img/images sae/logo.webp" alt="logo" width=50%>
+            </a>
+            <h1>Architexture</h1>
+            <button aria-controls="mainNav" @click="menuIsOpen = ! menuIsOpen" class="header__menuBtn">
+              <img src="public/img/images sae/menu.png" alt="menu" width=100%>
+            </button>
+            <nav id="mainNav" x-show="menuIsOpen" x-transition.duration.800ms class="menu">
+              <ul>
+                <li><a href="/index.html">Accueil</a>
+                </li>
+                <li><a href="/liens/Infos.html">Infos</a>
+                </li>
+                <li><a href="/liens/billeterie.html">Billeterie</a>
+                </li>
+                <li><a href="/liens/contact.html">Contact</a></li>
+                </li>
+                <li><a href="/liens/graves.html">M.Graves</a></li>
+              </ul>
+            </nav>
+          </div>
+        </header>
+    <div id="app"></div>
+    <script type="module" src="/src/main.ts"></script>
+        <main>
+          <h2 class="titre">Accueil</h2>
+          <img src="public/img/images sae/image 1.webp" alt="image de page d'accueil" width="375">
+          <h2 class="titre">Michael Graves: L’expo</h2>
+          <p class="text">
+            Retrouvez tout le génie de Michael Graves dans
+            cette expositions temporaire mettant a l’honneur ses
+            créations.
+          </p>
+          <p class="text">
+            Inscrivez vous sur la
+            billeterie pour ne pas manquer
+            l’exposition.
+          </p>
+          <img src="/public/img/images sae/image 3.webp" alt="Accueil1" width="375">
+          <p class="text">
+            Decouvrez ses créations hors
+            du commun dans cet
+            évenement.
+          </p>
+          <img src="/public/img/images sae/image 4.webp" alt="Accueil2" width="375">
+        </main>
+  </body>
+</html>

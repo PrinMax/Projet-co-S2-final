@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="fr" x-data="{menuIsOpen: false}" :class="{noscroll:menuIsOpen,}">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Architexture</title>
+    <script defer src="https://unpkg.com/alpinejs"></script>
+    <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+    <header>
+        <a href="/index.html"><img src="/public/img/images sae/logo.webp" alt="logo" width=50%></a>
+        <button aria-controls="mainNav" @click="menuIsOpen = ! menuIsOpen" class="header__menuBtn">
+            <img src="/public/img/images sae/menu.png" alt="menu" width=100%>
+        </button>
+        <h1 class="titre">Architexture</h1>
+        <nav id="mainNav" x-show="menuIsOpen" x-transition.duration.800ms class="menu">
+            <ul>
+                <li><a href="/index.html">Accueil</a>
+                </li>
+                <li><a href="/liens/Infos.html">Infos</a>
+                </li>
+                <li><a href="/liens/billeterie.html">Billeterie</a>
+                </li>
+                <li><a href="/liens/contact.html">Contact</a></li>
+                </li>
+                <li><a href="/liens/graves.html">M.Graves</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <body>
+        <main>
+            <img src="/public/img/images sae/image 7.webp" alt="Humana Building" width="375">
+            <h2 class="titre">Humana Building</h2>
+            <p class="text">Humana Building, aussi connu sous le nom de Humana Tower, est un gratte-ciel situé dans le
+                Downtown Louisville, quartier
+                d'affaires de la ville de Louisville, dans l'État du Kentucky, États-Unis. Il est localisé au 500 West
+                Main Street. 
+                Celui-ci est haut de 127 mètres, et compte 27 étages.</p>
+            <p class="text">La construction de ce gratte-ciel a débuté en octobre 1982 et s'est achevée en mai 1985, et
+                ce dernier appartient à
+                l'entreprise Humana.</p>
+        </main>
+        <footer>
+            <a href="/index.html">
+                <img src="/public/img/images sae/logo.webp" alt="logo" width=30%>
+            </a>
+            <li><a href="/liens/contact.html">Contact</a></li>
+            </li>
+        </footer>
+    </body>
+
+</html>
