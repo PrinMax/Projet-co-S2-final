@@ -1,11 +1,7 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <script setup lang="ts">
-//
+
 </script>
-
 <template>
-  <div class="title">
-  <h1>Bonjour monde !</h1>
-  </div>
-
+    <p>Footer</p>
 </template>

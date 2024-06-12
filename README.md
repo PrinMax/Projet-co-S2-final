@@ -1,137 +1,284 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/SkUppgPp)
-- Nom: Prin
-- Prénom: Max
-- URL du site:
-- Url de la maquette : https://www.figma.com/design/37uf0I4ss0MS7PWKlBJges/Maquette-SAE-203-Prin-Max?node-id=1201-2&t=Z72ziZMmaKdG4j05-1
+# R213-Agence
 
-# Sujet : Description de la SAE
+# Travail TP2
 
-Cette SAÉ s’inscrit dans le prolongement de la SAÉ 105 du premier semestre...
+## Base avec données satique (`JSON`)
 
-En partant du travail effectué lors de cette SAE, vous devrez :
+Importation manuelle des données
 
-- Reprendre les éléments graphiques de l’interface en vue de l’améliorer
-- Réaliser la version bureau de l’interface
-- Reprendre totalement l’intégration en vue d’une intégration Vite / Vue 3 / Tailwind / Pocketbase
-- **Mettre en ligne le site sur votre VPS**
+### La variable :
 
-# Consignes
+Lancer manuellement (F5) le `backend.mjs` (Du TP R214 | Système d'information) qui devrait afficher dans la console la liste des `maisons`. (Alternativement la copier depuis un lien présent sur la page de cours.)
 
-- Le rendu se fait en publiant vos modifications dans ce dépôt.
-- Le site doit être publié à une adresse publique sous peine de perdre des points dans toutes les matières.
-- Lire les consignes et répondre aux éventuelles questions sur ce même document.
-- [ ] Cochez si vous avez compris !
+Rq: s'assurer d'avoir une propriété `image` (au singulier) sockant qu'une image (et non une liste).
 
-Pour éventuellement archiver ou tester séparément votre projet, **Le rendre en plus sur Moodle** simplement faire une archive de tout le dossier.
+Dans le `<script setup>` de [`/src/pages/index.vue`](/src/pages/index.vue), ajoutez :
 
-## Consignes Intégration (Xavier Senente)
+```ts
+const maisonsListe = /* coller ici le tableau d'objet */
+```
 
-### Maquette
+### Le type :
 
-À partir de la maquette réalisée lors de la SAÉ 105, apporter quelques corrections mineures pour améliorer l’interface mobile du site. Réaliser ensuite la version bureau.
+- Survoler la variable `maisonsListe` : vous devez voir s'afficher le type inféré par TypeScript.
+- Copier le type et l'appliquer à la variable :\
+  ```ts
+  const maisonsListe: {
+    adresse: string;
+    collectionId: string;
+    /* ... */
+  }[] = /* ... */
+  ```
+  - Vérifiez que l'éditeur ne signale pas d'erreurs.
+- Extraire le type dans une déclaration `MaisonRecord` :
+  ```ts
+  interface MaisonRecord {
+    adresse: string;
+    collectionId: string;
+    /* ... */
+  }
+  const maisonsListe: MaisonRecord[] = /* ... */
+  ```
+  - Vérifiez que l'éditeur ne signale pas d'erreurs.
+- Faire le fichier `/src/types.ts` .
 
-Conseil ⇒ mettez en place une grille pour agencer le contenu dans la version bureau.
+  - Y copier le code de l'interface `MaisonRecord` et **l'exporter** :
+    ```ts
+    export interface MaisonRecord {
+      adresse: string
+      collectionId: string
+      /* ... */
+    }
+    ```
+  - Dans `/src/pages/index.vue` , remplacer la déclaration de l'interface par son import depuis `/src/types.ts`
 
-Exportez les icônes vectorielles au format SVG.
+    ```ts
+    import type { MaisonRecord } from '@/types'
 
-### Intégration
+    const maisonsListe: MaisonRecord[] = /* ... */
+    ```
 
-Voici les attendus pour cette partie :
+  - Vérifiez que l'éditeur ne signale pas d'erreurs.
 
-- Structure du code HTML (pertinence sémantique du code HTML + validation)
-- Définition des paramètres graphiques dans le fichier tailwind.config.js (couleurs + typo)
-- Définition des styles bases
-- Définition de quelques classes utilitaires souvent utilisées
-- Mise en place du responsive
-- Utilisation des grilles avec CSS grid
-- Interactions (menu mobile, carrousel, effet de scroll…)
+## Le composant `MaisonCard.vue`
 
-## Consignes Système d'information (Abdallah Makhoul)
+### Code du composant
 
-Pour la partie backend on vous demande de faire deux collections (architectes, Batiments), même si vous n'utilisez qu'une seule dans la partie Frontend.
+Faire le fichier [`/src/components/MaisonCard.vue`](/src/components/MaisonCard.vue)\
+Prendre modèle sur le CM/TD [`PersonneCard.vue`](https://github.com/ppierre/vue-base-tailwind/tree/vue3.3-test-personne?tab=readme-ov-file#composant-avec-param%C3%A8tre)
 
-Voici les attendus concernant cette partie :
+Pour le code du template, vous pouvez utiliser un des plugins Figma suivants :
 
-- Un modèle conceptuel de données
-- Structuration de la base de données et saisie de données dans Pocketbase
-- Saisir les données dans PocketBase
-- Un fichier `backend.mjs` comportant les fonctions suivantes qui sont testées dans un fichier `testback.js`
-  - une fonction qui retourne la liste de tous les bâtiments
-  - une fonction qui retourne la liste de tous les architectes
-  - une fonction qui retourne les infos d'un architecte en donnant son id en paramètre avec liste de ses bâtiments
-  - une fonction qui retourne la liste des bâtiments d'un architecte donné (par son nom)
-  - une fonction qui retourne la liste des bâtiments triés par date de construction (d'une manière chronologique) 
-  
-- **travail supplémentaire :**
-  - **saisir ou modifier des données automatiquement à partir du front**
-  - **une page de connexion (en utilisant la collection users)**
+- [Inspect - Export to HTML, React, Tailwind](https://www.figma.com/community/plugin/1049994768493726219) : donne un code HTML/Tailwind à coller dans `<template>`. Juste remplacer les textes par les interpolations (eg. `{{ maProp }}`)
+- [AutoHTML](https://www.figma.com/community/plugin/1077172952654000760) : Fais un composant (choisir Vue et Taillwind en option). Mais pas en TypeScript ni avec les types de PocketBase.
 
-Assurez-vous que vous rendez les fichiers suivants (liens) :
+Pour les `props` du composant `MaisonCard`, bien utiliser le type fait manuellement : `MaisonRecord` à importer de `/src/types.ts`.
 
-- [ ] [backend](/pocketbase/backend.mjs)
-- [ ] [test backen](/pocketbase/testback.js)
-- [ ] [MCD](/pocketbase/MCD.pdf)
+```ts
+import type { MaisonRecord } from '@/types'
 
-## Consignes Développent web (Pierre Pracht)
+const props = defineProps<MaisonRecord>()
+```
 
-Recopier les fonctions de `/pocketbase/backend.mjs` dans le `/src/backend.ts` existant. C'est le premier qui est noté en Système d'information. Le second indirectement dans le cadre de ma matière.
+### Tester le composant
 
-Si vous avez fini la base de données (PocketBase), n'oublier pas de générer ou régénérer `/src/pocketbase-types.ts` . Simplement faire :
+Dans le `<script setup>` de `/src/pages/index.vue`, ajouter au début l'import du composant :
+
+```ts
+import MaisonCard from '@/components/MaisonCard.vue'
+```
+
+Dans le `<template>` de `/src/pages/index.vue`, ajouter l'appel du composant :
+
+```html
+<MaisonCard v-bind="maisonsListe[0]" />
+```
+
+## Afficher les données
+
+Afficher toutes les maisons avec un `v-for`comme [vu en CM/TD][CM-boucle-objet]
+
+[CM-boucle-objet]: https://github.com/ppierre/vue-base-tailwind/tree/vue3.3-test-personne?tab=readme-ov-file#usage-dans-une-boucle
+
+## PocketBase (données dynamiques)
+
+### Intégration au projet VueJS
+
+S'assure que PocketBase n'est pas en cours d'exécution. Puis, déplacer (à la racine) le dossier `pocketbase` fait (en R214 | Système d'information) dans ce projet.
+
+Rq: s'assurer d'avoir une propriété `image` (au singulier) stockant qu'une image (et non une liste).
+
+### Générations des types des tables PocketBase
+
+Utilise [PocketBase typegen](typegen). Dans le terminal, faire :
+
+```
+npx pocketbase-typegen --db ./pocketbase/pb_data/data.db --out ./src/pocketbase-types.ts
+```
+
+Ou, comme le script a été ajouté au [`package.json`](./package.json#L13) :
 
 ```
 npm run typegen
 ```
 
-Réalisez le site en utilisant VueJS/ViteJS fourni et configuré pour l'usage TailwindCSS.
+[typegen]: https://github.com/patmood/pocketbase-typegen#quickstart
 
-- Usage de `<RouterLink>` et `<RouterView>`
-- Pages et routes paramétriques
-- Usage de `<Suspense>` et d'"`avait`" pour récupérer les données du backend. (appel de fonction)
+### Utiliser le type généré
 
-Barème indicatif :
+Dans `pages/index.vue` :
 
-- Minimum pour la moyenne :
-  - 10 pour un site complet et bien intégré, mais ne faisant qu'une simple boucle pour afficher une collection.
-  - Peu descendre jusqu'à 7 si peu ou pas d'intégration.
-  - Des points retirés pour tous les problèmes affectant le site ou la qualité du code.
-- Pour plus que 10 :
-  - 12 afficher la liste d'une collection sur une page et le détail d'un élément de la collection sur une page
-  - Jusqu'à 14, si plusieurs pages affichant les données de différentes façons et toujours bien intégrées.
-  - Vous pouvez perdre jusqu'à 4 points pour une intégration absente.
-  - Jusqu'à +2 points pour l'usage exhaustif de TypeScript.
-    - Dont 1 point, si `/src/pocketbase-types.ts` fait et à jour.
-  - Jusqu'à +2 points pour l'intégration d'une page 404 bien intégrée.
-  - Jusqu'à +2 points pour l'affiche de tailles, couleurs, positions... pilotées par des classes CSS ou styles. (eg. frise.)
+- Remplacer l'import du type `MaisonResponse` depuis `@/types` par `@/pocketbase-types`.
+- Vérifiez que l'éditeur ne signale pas d'erreurs (sauf sur `collectionName`).
+  ```ts
+  const maisonsListe:MaisonResponse[] = /* ... */
+  ```
+- Faire de même dans le composant [`/src/components/MaisonCard.vue`](/src/components/MaisonCard.vue)
+- Vérifiez que l'éditeur ne signale pas d'erreurs.
 
-## Consignes Hébergement (Hakim Mabed)
+Vous pouvez maintenant effacer le fichier `/src/types.ts`.
 
-L'évaluation se fait exclusivement sur la base des réalisations faites sur le VPS
+Pour l'avenir, retenez cette démarche :
 
-Barème de l'évaluation Hébergement :
-- Accessibilité du backoffice de pocketbase (http://sousdom.dom.tld:xxxx/_/ ou http://adresseip:xxxx) -> **4 pts**
-- Connexion au backoffice de pocketbase via l'email et mot de passe fournis -> **2 pts**
-- Disponibilité des collections et des users dans le backoffice de pocketbase -> **3 pts**
-- Association d'un nom de sous domaine à l'application web (nom-sous-domaine.mon-domaine.tld) -> **2 pts**
-- Accessibilité de l'application en http ou https -> **4 pts**
-- Inscription d'un nouveau utilisateur par un email, nom et mot de passe -> **3 pts**
-- Connexion de l'application aux données de Pocketbase du VPS -> **2 pts**
+- Faire la structure de données dans le backend (PocketBase).
+- Générer les types correspondants.
+- Utiliser les types pour s'assurer d'écrire un code adapté aux données.
 
-Barème de l'évaluation Optimisation :
-- Accessisibilité de l'application web via l'URL https://sousdom.dom.tld -> **7 pts**
-  Sinon accessisibilité de l'application web via l'URL http://sousdom.dom.tld -> **2 pts**
-- Optimisation du score SEO de l'application Web en utilisant Lighthouse -> **5 pts**
-- Implémentation d'un serveur Web Mutualisé (fichier 000-default.conf à retourner)-> **6 pts**
-  
-**P.S. si les accès par https sont OK alors l'accès en http n'est plus nécessaire !**
+### Afficher les images
 
-Renseigner les informations suivantes :
+Ne fonctionne que si PocketBase est lancé et que vous avez utilisé les données copiées depuis votre PocketBase.
 
-- [ ] Donnez l'adresse IP de votre VPS :
-      
-- [ ] Donnez le numéro de port d'écoute (xxxx) de pocketbase sur le VPS :
-      
-- [ ] Donnez le login et le mot de passe admin du compte pocketbase sur le VPS :
+Pour obtenir les "vraies" URL des images, le code suivant ([PocketBase file URL][pb-file-url]) est nécessaire. Mais je vous fournis un composant qui le fait pour vous :
 
-- [ ] Donnez l'URL du site web relatif à la SAE203 (sousdom.dom.tld) publié sur le VPS:
+[pb-file-url]: https://pocketbase.io/docs/files-handling/#file-url
 
-- [ ] Joindre le contenu du fichier de configuration apache 000-default.conf utilisé sur le VPS  [APACHE](/apache/000-default.conf)
+#### Usage de `/src/components/ImgPb.vue`
+
+Dans `/src/components/MaisonCard.vue` :
+
+```html
+<script setup lang="ts">
+  import type { MaisonResponse } from '@/pocketbase-types'
+  import ImgPb from './ImgPb.vue'
+
+  // ajout <any> lié à un bug
+  const props = defineProps<MaisonResponse<any>>()
+</script>
+<template>
+  <div>
+    <!-- ... Changez <img> en : -->
+    <ImgPb :record="props" :filename="image" :width="387" :height="235" class="..." />
+  </div>
+</template>
+```
+
+- `props` contient tout l'enregistrement passé au composant.
+  - Contient les "`id`" nécessaires pour retrouver ou est stocker l'image.
+- `image` est la propriété contenant le nom de l'image (valeur de la colonne).
+
+# Travail TP3
+
+## utiliser les données dynamiques
+
+Pour afficher sur page d'accueil les offres en favori :
+
+Compléter le `backend.ts` fournis avec les fonctions faites en R214 | Système d'information.
+
+Dans `/src/pages/index.vue`, remplacez le tableau par l'appel de la fonction de `/src/backend.ts` chargeant toutes les "offres" en favori (ou autre si pas faites) :
+
+```ts
+import { allMaisonsFavori } from '@/backend'
+
+const maisonsListe = await allMaisonsFavori()
+```
+
+À noter, faire un `await` dans `<script setup>` ne fonctionne que, car l'on a mis un <[Suspense]> dans `/src/App.vue` .
+
+## pages "offres", toutes les "offres"
+
+Faire le fichier `/src/pages/offres/index.vue`
+
+- Même code que `/src/pages/index.vue`
+- Remplacer `allMaisonsFavori` par `allMaisonsSorted`
+
+Testez en allant à l'URL : http://localhost:5173/offres
+
+**Important :** Apprenez à afficher les routes dans Vue DevTools (demandez).
+
+## Menu de navigation
+
+Pour les liens il est préférable d'utiliser le composant <[RouterLink]>
+
+[RouterLink]: https://router.vuejs.org/api/interfaces/RouterLinkProps.html
+
+Ajouter le menu dans `/src/App.vue` :
+
+```html
+<nav>
+  <ul>
+    <li>
+      <RouterLink to="/">Accueil</RouterLink>
+    </li>
+    <li>
+      <RouterLink to="/offres">Toutes les offres</RouterLink>
+    </li>
+  </ul>
+</nav>
+```
+
+# Travail TP4
+
+Faire le fichier `/src/pages/offres/[id].vue`
+
+## Changer `/offres` en une liste de liens
+
+```html
+<ul>
+  <li v-for="uneMaison of maisonsListe" :key="uneMaison.id">
+    <RouterLink
+      :to="{
+        name: '/offres/[id]',
+        params: {
+          id: uneMaison.id
+        }
+      }"
+      class="text-red-400 hover:text-red-600"
+    >
+      {{ uneMaison.nomMaison }}
+    </RouterLink>
+  </li>
+</ul>
+```
+
+On remarquera l'usage d'un binding (`:`) pour la props `to` pour pouvoir passer un objet :
+
+- `name` : le nom de la route (ne change pas avec les paramètres)
+- `params` : un objet contenant les paramètres de route passés au composant affiché par la route (de `/src/pages/...` dans `<RouterView>`)
+
+## afficher une offre :
+
+fichier `/src/pages/offres/[id].vue`
+
+```html
+<script setup lang="ts">
+  import MaisonCard from '@/components/MaisonCard.vue'
+
+  import { useRoute } from 'vue-router/auto'
+
+  const route = useRoute('/offres/[id]')
+  console.log('id :', route.params.id)
+
+  const uneMaison = await /* Avez-vous une fonction pour cela ? */
+</script>
+<template>
+  <div>
+    <h1 class="text-xl">Une maison</h1>
+    <MaisonCard v-bind="uneMaison" />
+  </div>
+</template>
+```
+
+# Travail TP5
+
+- `/src/pages/agents/index.vue` : la liste des agents avec des liens vers...
+- `/src/pages/agents/[id].vue` : la page d'un agent qui liste les offres dont il est responsable.
