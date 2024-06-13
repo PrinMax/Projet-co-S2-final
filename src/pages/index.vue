@@ -47,14 +47,14 @@ import flèche from '@/components/icons/flèche.vue'
             </div>
         </div>
     </div>
-<div class="flex ml-5 mr-5">
+<div class="flex ml-5 mr-5 mb-5">
   <p class="text-xl bg-[#C2E9FF] h-20">Avec Student’Book retrouvez toutes les actualités regroupées en un <br> seul  endroit et sur différents domaines afin de parfaire votre veille. <br>Accéder aux actualités</p>
   
   <img class="w-[300px] h-[150px] items-center ml-5" src="/src/components/img/image 7.webp" alt="image actualités" width="10%" height="10%">
 </div>
 <div class="flex ml-5 mr-5">
   <img class="w-[300px] h-[200px] items-center" src="/src/components/img/image 8.webp" alt="image newsletter">
-  <p class="bg-[#C2E9FF] h-20 text-xl">Abonnez vous à notre Newsletter pour suivre <br> les actualités de Student’Book.</p>
+  <p class="bg-[#C2E9FF] h-20 text-xl">Abonnez vous à notre Newsletter pour suivre <br> les actualités de Student’Book. <br>S'abonner à notre Newsletter</p>
 </div>
 </body>
 
