@@ -1,6 +1,7 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <script setup lang="ts">
 const font = 'font-body';
+import flèche from '@/components/icons/flèche.vue'
 </script>
 
 <template>
@@ -12,7 +13,7 @@ const font = 'font-body';
     </div>
     <div style="position: absolute;top: 300px;width: 650px; height: 400px; z-index: 2; font-size: 200%; margin-left: 450px;">
       <div class="font-body-text">
-      <center><p class="text-white">Étudiants,améliorez votre veille et simplifiez vos études avec Student’Book</p></center>
+      <p class="text-white">Étudiants, améliorez votre veille et simplifiez vos études avec Student’Book</p>
     </div>
     </div>
   </div>
