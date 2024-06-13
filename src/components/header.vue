@@ -25,10 +25,11 @@ defineExpose({
         <button><menuB class="flex ml-[30px] h-10 mt-2" @click="toggleMenu"/></button>
     </header>
 
-     <ul class="h-screen text-center " v-show="isMenuOpen">
+     <ul class="h-screen text-center absolute w-screen z-10 bg-[#519DC8]" v-show="isMenuOpen">
             <li  class="text-white text-2xl  hover:text-3xl hover:font-bold hover:text-black">Accueil</li>
+            <li class="text-white text-2xl  hover:text-3xl hover:font-bold hover:text-black">Actualité</li>
             <li class="text-white text-2xl  hover:text-3xl hover:font-bold hover:text-black">À propos</li>
-            <li class="text-white text-2xl  hover:text-3xl hover:font-bold hover:text-black">Services</li>
+            <li class="text-white text-2xl  hover:text-3xl hover:font-bold hover:text-black">Newsletter</li>
      </ul>
 </div>
 </template>
